@@ -1,3 +1,4 @@
+global using BlazorMyRide.Shared;
 global using Microsoft.EntityFrameworkCore;
 using BlazorMyRide.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
