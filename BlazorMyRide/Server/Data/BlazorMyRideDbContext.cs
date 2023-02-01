@@ -27,5 +27,7 @@
                     Price = 42.66M,
                 });               
         }
+
+        public DbSet<Custom> Customs { get; set;}
     }
 }
