@@ -1,7 +1,11 @@
 global using Microsoft.EntityFrameworkCore;
+using BlazorMyRide.Server.Data;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<BlazorMyRideDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
