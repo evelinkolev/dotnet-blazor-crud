@@ -19,5 +19,11 @@ namespace BlazorMyRide.Server.Controllers
         {
             return await _customService.GetCustoms();
         }
+
+        [HttpGet("{id}")]
+        public async Task<Custom?> GetCustomById(int id)
+        {
+            return await _customService.GetCustomByID(id);
+        }
     }
 }
