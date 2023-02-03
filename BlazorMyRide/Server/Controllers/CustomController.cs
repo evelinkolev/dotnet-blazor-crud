@@ -37,5 +37,11 @@ namespace BlazorMyRide.Server.Controllers
         {
             return await _customService.UpdateCustom(id, custom);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<bool> DeleteCustom(int id)
+        {
+            return await _customService.DeleteCustom(id);
+        }
     }
 }
