@@ -7,5 +7,11 @@ namespace BlazorMyRide.Server.Controllers
     [ApiController]
     public class CustomController : ControllerBase
     {
+        private readonly ICustomService _customService;
+
+        public CustomController(ICustomService customService)
+        {
+            _customService = customService;
+        }
     }
 }
