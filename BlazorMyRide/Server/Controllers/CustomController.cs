@@ -13,5 +13,11 @@ namespace BlazorMyRide.Server.Controllers
         {
             _customService = customService;
         }
+
+        [HttpGet]
+        public async Task<List<Custom>> GetCustoms()
+        {
+            return await _customService.GetCustoms();
+        }
     }
 }
