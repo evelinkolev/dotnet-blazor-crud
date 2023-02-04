@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace BlazorMyRide.Client.Services
@@ -26,9 +27,14 @@ namespace BlazorMyRide.Client.Services
             throw new NotImplementedException();
         }
 
-        public Task<Custom?> GetCustomById(int id)
+        public async Task<Custom?> GetCustomById(int id)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetAsync($"api/custom/{id}");
+            if(result.StatusCode is HttpStatusCode.OK)
+            {
+                return await result.Content.ReadFromJsonAsync<Custom>();
+            }
+            return null;
         }
 
         public async Task GetCustoms()
