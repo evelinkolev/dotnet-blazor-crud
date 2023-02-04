@@ -46,9 +46,10 @@ namespace BlazorMyRide.Client.Services
             }
         }
 
-        public Task UpdateCustom(int id, Custom custom)
+        public async Task UpdateCustom(int id, Custom custom)
         {
-            throw new NotImplementedException();
+            await _httpClient.PutAsJsonAsync($"api/custom/{id}", custom);
+            _navigationManager.NavigateTo("customs");
         }
     }
 }
