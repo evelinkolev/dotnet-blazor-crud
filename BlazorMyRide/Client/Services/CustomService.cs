@@ -23,9 +23,10 @@ namespace BlazorMyRide.Client.Services
             _navigationManager.NavigateTo("customs");
         }
 
-        public Task DeleteCustom(int id)
+        public async Task DeleteCustom(int id)
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.DeleteAsync($"api/custom/{id}");
+            _navigationManager.NavigateTo("customs");
         }
 
         public async Task<Custom?> GetCustomById(int id)
