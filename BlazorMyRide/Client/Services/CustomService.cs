@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.Net.Http.Json;
 
 namespace BlazorMyRide.Client.Services
 {
@@ -30,9 +31,13 @@ namespace BlazorMyRide.Client.Services
             throw new NotImplementedException();
         }
 
-        public Task GetCustoms()
+        public async Task GetCustoms()
         {
-            throw new NotImplementedException();
+            var result = await _httpClient.GetFromJsonAsync<List<Custom>>("api/custom");
+            if(result is not null)
+            {
+                Customs = result;
+            }
         }
 
         public Task UpdateCustom(int id, Custom custom)
