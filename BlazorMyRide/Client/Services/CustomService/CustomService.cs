@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Http.Json;
 
-namespace BlazorMyRide.Client.Services
+namespace BlazorMyRide.Client.Services.CustomService
 {
-    public class CustomService : ICutomService
+    public class CustomService : ICustomService
     {
         private readonly HttpClient _httpClient;
         private readonly NavigationManager _navigationManager;
@@ -32,7 +32,7 @@ namespace BlazorMyRide.Client.Services
         public async Task<Custom?> GetCustomById(int id)
         {
             var result = await _httpClient.GetAsync($"api/custom/{id}");
-            if(result.StatusCode is HttpStatusCode.OK)
+            if (result.StatusCode is HttpStatusCode.OK)
             {
                 return await result.Content.ReadFromJsonAsync<Custom>();
             }
@@ -42,7 +42,7 @@ namespace BlazorMyRide.Client.Services
         public async Task GetCustoms()
         {
             var result = await _httpClient.GetFromJsonAsync<List<Custom>>("api/custom");
-            if(result is not null)
+            if (result is not null)
             {
                 Customs = result;
             }

@@ -1,6 +1,6 @@
-﻿namespace BlazorMyRide.Client.Services
+﻿namespace BlazorMyRide.Client.Services.CustomService
 {
-    public interface ICutomService
+    public interface ICustomService
     {
         List<Custom> Customs { get; set; }
         Task GetCustoms();
