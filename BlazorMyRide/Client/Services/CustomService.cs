@@ -17,9 +17,10 @@ namespace BlazorMyRide.Client.Services
 
         public List<Custom> Customs { get; set; } = new List<Custom>();
 
-        public Task AddCustom(Custom custom)
+        public async Task AddCustom(Custom custom)
         {
-            throw new NotImplementedException();
+            await _httpClient.PostAsJsonAsync("api/custom/new", custom);
+            _navigationManager.NavigateTo("customs");
         }
 
         public Task DeleteCustom(int id)
