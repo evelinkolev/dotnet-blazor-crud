@@ -1,4 +1,4 @@
-﻿namespace BlazorMyRide.Server.Services
+﻿namespace BlazorMyRide.Server.Services.CustomService
 {
     public interface ICustomService
     {

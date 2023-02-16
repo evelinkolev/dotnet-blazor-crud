@@ -1,6 +1,6 @@
 ﻿using BlazorMyRide.Server.Data;
 
-namespace BlazorMyRide.Server.Services
+namespace BlazorMyRide.Server.Services.CustomService
 {
     public class CustomService : ICustomService
     {
@@ -22,7 +22,7 @@ namespace BlazorMyRide.Server.Services
         {
             var dbCustom = await _dbContext.Customs.FindAsync(id);
 
-            if(dbCustom is null)
+            if (dbCustom is null)
             {
                 return false;
             }
@@ -47,7 +47,7 @@ namespace BlazorMyRide.Server.Services
         {
             var dbCustom = await _dbContext.Customs.FindAsync(id);
 
-            if(dbCustom is not null)
+            if (dbCustom is not null)
             {
                 dbCustom.Description = custom.Description;
                 dbCustom.Price = custom.Price;

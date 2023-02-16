@@ -2,6 +2,7 @@ global using BlazorMyRide.Server.Services;
 global using BlazorMyRide.Shared;
 global using Microsoft.EntityFrameworkCore;
 using BlazorMyRide.Server.Data;
+using BlazorMyRide.Server.Services.CustomService;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
