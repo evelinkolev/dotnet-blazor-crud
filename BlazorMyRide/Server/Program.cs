@@ -1,8 +1,9 @@
-global using BlazorMyRide.Server.Services;
+global using BlazorMyRide.Server.Services.CarService;
+global using BlazorMyRide.Server.Services.CustomService;
 global using BlazorMyRide.Shared;
 global using Microsoft.EntityFrameworkCore;
-using BlazorMyRide.Server.Data;
-using BlazorMyRide.Server.Services.CustomService;
+global using BlazorMyRide.Server.Data;
+
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BlazorMyRideDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ICustomService, CustomService>();
 
 builder.Services.AddControllersWithViews();
