@@ -8,6 +8,34 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Driver>().HasKey(d => new { d.Id });
+
+            modelBuilder.Entity<Driver>().HasData(
+                new Driver
+                {
+                    Id = 1,
+                    FullName = "Teodora Testova",
+                    Gender = "female",
+                    Phone = "123-456-789",
+                    Address = "Strelbishte District",
+                    Email = "testova.teodora@gmail.com",
+                    NationalCardNumber = "Pending Edit",
+                    PIN = "Pending Edit",
+                    CarId = 1
+                },
+                new Driver
+                {
+                    Id = 2,
+                    FullName = "Edit or Delete",
+                    Gender = "Edit or Delete",
+                    Phone = "Edit or Delete",
+                    Address = "Edit or Delete",
+                    Email = "Edit or Delete",
+                    NationalCardNumber = "Edit or Delete",
+                    PIN = "Edit or Delete",
+                    CarId = 2
+                });
+
             modelBuilder.Entity<Car>().HasKey(ca => new { ca.Id });
 
             modelBuilder.Entity<Car>().HasData(
@@ -52,6 +80,7 @@
                 });               
         }
 
+        public DbSet<Driver> Drivers { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Custom> Customs { get; set;}
     }
