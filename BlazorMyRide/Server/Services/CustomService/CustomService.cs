@@ -27,7 +27,7 @@ namespace BlazorMyRide.Server.Services.CustomService
                 return false;
             }
 
-            _dbContext.Remove(dbCustom);
+            dbCustom.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -40,7 +40,7 @@ namespace BlazorMyRide.Server.Services.CustomService
 
         public async Task<List<Custom>> GetCustoms()
         {
-            return await _dbContext.Customs.ToListAsync();
+            return await _dbContext.Customs.Where(c => !c.IsDeleted).ToListAsync();
         }
 
         public async Task<Custom?> UpdateCustom(int id, Custom custom)

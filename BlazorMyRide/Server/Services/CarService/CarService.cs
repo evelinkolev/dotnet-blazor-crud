@@ -31,7 +31,7 @@ namespace BlazorMyRide.Server.Services.CarService
                 return false;
             }
 
-            _dbContext.Remove(dbCar);
+            dbCar.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -53,6 +53,7 @@ namespace BlazorMyRide.Server.Services.CarService
         public async Task<List<Car>> GetCars()
         {
             return await _dbContext.Cars
+                .Where(ca => !ca.IsDeleted)
                 .Include(ca => ca.Custom)
                 .ToListAsync();
         }

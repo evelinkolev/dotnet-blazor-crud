@@ -14,6 +14,7 @@ namespace BlazorMyRide.Shared
         public string? Make { get; set; }
         public string? Model { get; set; }
         public string? Color { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public Custom? Custom { get; set; }
         public int? CustomId { get; set; }
     }

@@ -16,7 +16,8 @@ namespace BlazorMyRide.Shared
         public string? Email { get; set; }
         public string? NationalCardNumber { get; set; }
         public string? PIN { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public int? CarId { get; set; }
-        public Car? Cars { get; set; }
+        public Car? Car { get; set; }
     }
 }

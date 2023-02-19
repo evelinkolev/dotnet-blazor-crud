@@ -21,6 +21,7 @@
                     Email = "testova.teodora@gmail.com",
                     NationalCardNumber = "Pending Edit",
                     PIN = "Pending Edit",
+                    IsDeleted = false,
                     CarId = 1
                 },
                 new Driver
@@ -33,6 +34,7 @@
                     Email = "Edit or Delete",
                     NationalCardNumber = "Edit or Delete",
                     PIN = "Edit or Delete",
+                    IsDeleted = false,
                     CarId = 2
                 });
 
@@ -47,6 +49,7 @@
                     Make = "Kia",
                     Model = "Optima Hybrid",
                     Color = "Cafe Latte",
+                    IsDeleted = false,
                     CustomId = 1
                 },
                 new Car
@@ -57,6 +60,7 @@
                     Make = "Hyundai",
                     Model = "Santa Fe Sport",
                     Color= "Charcoal",
+                    IsDeleted = false,
                     CustomId = 2
                 });
 
@@ -68,6 +72,7 @@
                     Id = 1,
                     CreatedDate = DateTime.UtcNow,
                     Description = "Battery Repair and Replacement",
+                    IsDeleted = false,
                     Price = 500.00M,
 
                 },
@@ -76,6 +81,7 @@
                     Id = 2,
                     CreatedDate = DateTime.UtcNow,
                     Description = "Front side bulbs",
+                    IsDeleted = false,
                     Price = 42.66M,
                 });               
         }

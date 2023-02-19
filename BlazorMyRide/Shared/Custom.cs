@@ -11,6 +11,7 @@ namespace BlazorMyRide.Shared
         public int Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
         public string Description { get; set; } = string.Empty;
+        public bool IsDeleted { get; set; } = false;
         public decimal Price { get; set; }
     }
 }
