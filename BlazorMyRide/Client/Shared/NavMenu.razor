@@ -1,0 +1,93 @@
+﻿<nav>
+    <div class="logo">
+        <img src="@logoImageSource" />
+    </div>
+    <div class="@LinksCssClass" @onclick="ToggleNavMenu">
+        <NavLink href="" Match="NavLinkMatch.All">
+            Home
+        </NavLink>
+        <NavLink href="drivers">
+            Drivers
+        </NavLink>
+        <NavLink href="cars">
+            Cars
+        </NavLink>
+        <NavLink href="customs">
+            Customs
+        </NavLink>
+    </div>
+    <div class="menu" @onclick="ToggleNavMenu">
+        <h1>Menu</h1>
+        <img class="wheel@(_sideMenuIconIsActive ? "" : "--spinner")" src="@menuImageSource" />
+    </div>
+</nav>
+
+@code {
+
+    private string? logoImageSource;
+    private string? menuImageSource;
+    private bool _sideMenuIconIsActive = false;
+
+    private string? LinksCssClass => _sideMenuIconIsActive ? "links" : "links hidden";
+
+    protected override void OnInitialized()
+    {
+        logoImageSource = $"/assets/images/logo.png";
+        menuImageSource = $"/assets/images/menu.png";
+    }
+
+    private void ToggleNavMenu()
+    {
+        _sideMenuIconIsActive = !_sideMenuIconIsActive;
+    }
+}
+
+<style>
+
+    .links {
+        position: absolute;
+        background: white;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        transition: var(--transition-prop);
+    }
+
+    .links.hidden {
+        position: absolute;
+        background: white;
+        width: 0%;
+        height: 100vh;
+        z-index: 1;
+        top: 0;
+        right: 0;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        transition: var(--transition-prop);
+    }
+
+    .links a {
+        font-weight: 400;
+        font-size: 2rem;
+        color: #003aad;
+        list-style: none;
+        text-decoration: none;
+    }
+
+    .links a:hover,
+    .links a:focus,
+    .links a.active {
+        color: #008aad;
+    }
+
+</style>
