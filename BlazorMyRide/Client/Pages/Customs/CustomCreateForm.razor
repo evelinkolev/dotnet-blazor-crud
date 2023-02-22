@@ -1,0 +1,42 @@
+﻿@page "/custom/new"
+@inject ICustomService CustomService
+@inject NavigationManager NavigationManager
+
+<PageTitle>New Custom</PageTitle>
+
+<div class="work-space">
+    <div class="container">
+        <EditForm Model="custom" class="form" OnSubmit="SubmitCustom">
+            <h1 class="form__title">New Custom</h1>
+            <div class="form__input-group">
+                <InputDate class="form__input" @bind-Value="custom.CreatedDate" autofocus placeholder="Date"></InputDate>
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="custom.Description" autofocus placeholder="Description"></InputText>
+            </div>
+            <div class="form__input-group">
+                <InputNumber class="form__input" @bind-Value="custom.Price" autofocus placeholder="Price"></InputNumber>
+            </div>
+            <br />
+            <button type="submit" class="button__save">
+                <span class="button__text">Save</span>
+            </button>
+            <button class="button__cancel" @onclick="CancelEditing">
+                <span class="button__text">Cancel</span>
+            </button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    Custom custom = new Custom();
+
+    private async Task SubmitCustom()
+    {
+        await CustomService.AddCustom(custom);
+    }
+    private void CancelEditing()
+    {
+        NavigationManager.NavigateTo("/customs");
+    }
+}
