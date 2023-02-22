@@ -1,0 +1,97 @@
+﻿@page "/car"
+@page "/car/{id:int}"
+@inject ICarService CarService
+@inject ICustomService CustomService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Update Car</PageTitle>
+
+<div class="work-space">
+    <div class="container">
+        <EditForm Model="car" class="form" OnSubmit="UpdateCar">
+            <h1 class="form__title">Update Car</h1>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.VIN" autofocus placeholder="VIN"></InputText>
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.LicensePlate" autofocus placeholder="License Plate"></InputText>
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.Make" autofocus placeholder="Make"></InputText>
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.Model" autofocus placeholder="Model"></InputText>
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.Color" autofocus placeholder="Color"></InputText>
+            </div>
+            <div class="form__input-group">
+                <InputSelect class="select" @bind-Value="car.CustomId">
+                    <option disabled selected>Custom</option>
+                    @foreach (var custom in CustomService.Customs)
+                    {
+                        <option value="@custom.Id">@custom.Description</option>
+                    }
+                </InputSelect>
+            </div>
+            <p class="form__text">
+                <a class="form__link" href="/custom/new">Don't find the custom? Make it here</a>
+            </p>
+            <br />
+            <button type="submit" class="button__save">
+                <span class="button__text">Save</span>
+            </button>
+
+            <button class="button__cancel" @onclick="CancelEditing">
+                <span class="button__text">Cancel</span>
+            </button>
+            <button type="button" class="button__remove" @onclick="DeleteCar">
+                <span class="button__text">Remove</span>
+            </button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    Car car = new Car { Custom = new Custom() };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CustomService.GetCustoms();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if(Id > 0)
+        {
+            var result = await CarService.GetCarById(Id);
+            if(result is not null)
+            {
+                car = result;
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/car");
+            }
+        }
+    }
+
+    private async Task UpdateCar()
+    {
+        await CarService.UpdateCar(Id, car);
+    }
+
+    private void CancelEditing()
+    {
+        NavigationManager.NavigateTo("/cars");
+    }
+
+    private async Task DeleteCar()
+    {
+        await CarService.DeleteCar(car.Id);
+    }
+}
