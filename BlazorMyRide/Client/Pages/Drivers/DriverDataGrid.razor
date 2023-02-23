@@ -1,0 +1,68 @@
+﻿@page "/drivers"
+@inject IDriverService DriverService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Drivers View</PageTitle>
+
+<h3>Drivers Data</h3>
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (DriverService.Drivers is null)
+{
+    <span>Loading Drivers...</span>
+}
+else
+{
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>National ID</th>
+                <th>PIN</th>
+                <th>Car</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <Virtualize Items="DriverService.Drivers" Context="driver">
+                <tr>
+                    <td>@driver.FullName</td>
+                    <td>@driver.Gender</td>
+                    <td>@driver.Phone</td>
+                    <td>@driver.Address</td>
+                    <td>@driver.Email</td>
+                    <td>@driver.NationalCardNumber</td>
+                    <td>@driver.PIN</td>
+                    <td>@driver.Car?.VIN</td>
+                    <td>
+                        <button class="button__edit" @onclick="(() => ShowDriver(driver.Id))">
+                            <span class="button__text">Edit</span>
+                        </button>
+                    </td>
+                </tr>
+            </Virtualize>
+        </tbody>
+    </table>
+    <button class="button__insert" @onclick="CreateNewDriver">
+        <span class="button__text">Insert</span>
+    </button>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await DriverService.GetDrivers();
+    }
+    private void ShowDriver(int id)
+    {
+        NavigationManager.NavigateTo($"driver/{id}");
+    }
+    private void CreateNewDriver()
+    {
+        NavigationManager.NavigateTo("/driver/new");
+    }
+}
