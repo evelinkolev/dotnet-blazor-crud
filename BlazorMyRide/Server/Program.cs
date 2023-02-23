@@ -1,3 +1,4 @@
+global using BlazorMyRide.Server.Services.DriverService;
 global using BlazorMyRide.Server.Services.CarService;
 global using BlazorMyRide.Server.Services.CustomService;
 global using BlazorMyRide.Shared;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BlazorMyRideDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ICustomService, CustomService>();
 

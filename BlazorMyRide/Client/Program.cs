@@ -1,3 +1,4 @@
+global using BlazorMyRide.Client.Services.DriverService;
 global using BlazorMyRide.Client.Services.CarService;
 global using BlazorMyRide.Client.Services.CustomService;
 global using BlazorMyRide.Shared;
@@ -9,6 +10,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddScoped<IDriverService, DriverService>();
 builder.Services.AddScoped<ICarService, CarService>();
 builder.Services.AddScoped<ICustomService, CustomService>();
 
