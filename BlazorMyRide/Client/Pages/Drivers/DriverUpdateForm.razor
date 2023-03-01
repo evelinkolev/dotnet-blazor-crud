@@ -1,0 +1,110 @@
+﻿@page "/driver"
+@page "/driver/{id:int}"
+@inject IDriverService DriverService
+@inject ICarService CarService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Update Driver</PageTitle>
+
+<div class="work-space">
+    <div class="container">
+        <EditForm Model="driver" class="form" OnValidSubmit="UpdateDriver">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="form__input--error" />
+            <h1 class="form__title">Update Driver</h1>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.FullName" autofocus placeholder="Full Name"></InputText>
+                <ValidationMessage For="@(()=> driver.FullName)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.Gender" autofocus placeholder="Gender"></InputText>
+                <ValidationMessage For="@(()=> driver.Gender)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.Phone" autofocus placeholder="Phone"></InputText>
+                <ValidationMessage For="@(()=> driver.Phone)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.Address" autofocus placeholder="Address"></InputText>
+                <ValidationMessage For="@(()=> driver.Address)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.Email" autofocus placeholder="Email"></InputText>
+                <ValidationMessage For="@(()=> driver.Email)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.NationalCardNumber" autofocus placeholder="National ID"></InputText>
+                <ValidationMessage For="@(()=> driver.NationalCardNumber)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="driver.PIN" autofocus placeholder="PIN"></InputText>
+                <ValidationMessage For="@(()=> driver.PIN)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputSelect class="select" @bind-Value="driver.CarId">
+                    <option disabled selected>Car</option>
+                    @foreach (var car in CarService.Cars)
+                    {
+                        <option value="@car.Id">@car.VIN</option>
+                    }
+                </InputSelect>
+            </div>
+            <p class="form__text">
+                <a class="form__link" href="/car/new">Don't find the car? Make it here</a>
+            </p>
+            <br />
+            <button type="submit" class="button__save">
+                <span class="button__text">Save</span>
+            </button>
+            <button class="button__cancel" @onclick="CancelEditing">
+                <span class="button__text">Cancel</span>
+            </button>
+            <button type="button" class="button__remove" @onclick="DeleteDriver">
+                <span class="button__text">Remove</span>
+            </button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    Driver driver = new Driver { Car = new Car() };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CarService.GetCars();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id > 0)
+        {
+            var result = await DriverService.GetDriverById(Id);
+            if (result is not null)
+            {
+                driver = result;
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/driver");
+            }
+        }
+    }
+
+    private async Task UpdateDriver()
+    {
+        await DriverService.UpdateDriver(Id, driver);
+    }
+
+    private void CancelEditing()
+    {
+        NavigationManager.NavigateTo("/drivers");
+    }
+
+    private async Task DeleteDriver()
+    {
+        await DriverService.DeleteDriver(driver.Id);
+    }
+}

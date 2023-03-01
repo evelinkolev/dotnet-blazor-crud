@@ -1,0 +1,42 @@
+﻿nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 3rem;
+}
+
+.menu {
+    float: right;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.menu h1 {
+    color: #4d4d4d;
+    margin-right: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.menu img {
+    width: 3rem;
+}
+
+.wheel {
+    transition: var(--transition-prop);
+}
+
+.wheel--spinner {
+    transform: rotate(360deg);
+    transition: var(--transition-prop);
+}

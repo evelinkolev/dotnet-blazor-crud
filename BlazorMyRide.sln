@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMyRide.Server", "BlazorMyRide\Server\BlazorMyRide.Server.csproj", "{B4EE0EC0-CA54-460E-BF3C-119D819DEA13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMyRide.Server", "BlazorMyRide\Server\BlazorMyRide.Server.csproj", "{B4EE0EC0-CA54-460E-BF3C-119D819DEA13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMyRide.Client", "BlazorMyRide\Client\BlazorMyRide.Client.csproj", "{084AC98D-6DA7-4398-B700-48353108E0CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMyRide.Client", "BlazorMyRide\Client\BlazorMyRide.Client.csproj", "{084AC98D-6DA7-4398-B700-48353108E0CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorMyRide.Shared", "BlazorMyRide\Shared\BlazorMyRide.Shared.csproj", "{C8A001FD-26AF-4A68-9F58-7EB6CC257831}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorMyRide.Shared", "BlazorMyRide\Shared\BlazorMyRide.Shared.csproj", "{C8A001FD-26AF-4A68-9F58-7EB6CC257831}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

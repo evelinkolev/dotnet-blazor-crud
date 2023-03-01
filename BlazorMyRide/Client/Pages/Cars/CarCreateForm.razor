@@ -1,0 +1,76 @@
+﻿@page "/car/new"
+@inject ICarService CarService
+@inject ICustomService CustomService
+@inject NavigationManager NavigationManager
+
+<PageTitle>New Car</PageTitle>
+
+<div class="work-space">
+    <div class="container">
+        <EditForm Model="car" class="form" OnValidSubmit="SubmitCar">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="form__input--error" />
+            <h1 class="form__title">New Car</h1>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.VIN" autofocus placeholder="VIN"></InputText>
+                <ValidationMessage For="@(()=> car.VIN)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.LicensePlate" autofocus placeholder="License Plate"></InputText>
+                <ValidationMessage For="@(()=> car.LicensePlate)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.Make" autofocus placeholder="Make"></InputText>
+                <ValidationMessage For="@(()=> car.Make)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.Model" autofocus placeholder="Model"></InputText>
+                <ValidationMessage For="@(()=> car.Model)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputText class="form__input" @bind-Value="car.Color" autofocus placeholder="Color"></InputText>
+                <ValidationMessage For="@(()=> car.Color)" class="form__input-error-message" />
+            </div>
+            <div class="form__input-group">
+                <InputSelect class="select" @bind-Value="car.CustomId">
+                    <option disabled selected>Custom</option>
+                    @foreach (var custom in CustomService.Customs)
+                    {
+                        <option value="@custom.Id">@custom.Description</option>
+                    }
+                </InputSelect>
+            </div>
+            <p class="form__text">
+                <a class="form__link" href="/custom/new">Don't find the custom? Make it here</a>
+            </p>
+            <br />
+            <button type="submit" class="button__save">
+                <span class="button__text">Save</span>
+            </button>
+
+            <button class="button__cancel" @onclick="CancelEditing">
+                <span class="button__text">Cancel</span>
+            </button>
+
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    Car car = new Car();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CustomService.GetCustoms();
+    }
+
+    private async Task SubmitCar()
+    {
+        await CarService.AddCar(car);
+    }
+
+    private void CancelEditing()
+    {
+        NavigationManager.NavigateTo("/cars");
+    }
+}

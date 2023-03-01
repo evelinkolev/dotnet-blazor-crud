@@ -1,0 +1,66 @@
+﻿@page "/customs"
+@inject ICustomService CustomService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Customs View</PageTitle>
+
+<h3>Customs Data</h3>
+<p>This component demonstrates fetching data from the server.</p>
+
+@if(CustomService.Customs is null)
+{
+    <span>Loading Customs...</span>
+}
+else
+{
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>
+                    Created Date
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <Virtualize Items="CustomService.Customs" Context="custom">
+                <tr>
+                    <td>@custom.CreatedDate</td>
+                    <td>@custom.Description</td>
+                    <td>@custom.Price</td>
+                    <td>
+                        <button class="button__edit" @onclick="(() => ShowCustom(custom.Id))">
+                            <span class="button__text">Edit</span>
+                        </button>
+                    </td>
+                </tr>
+            </Virtualize>
+        </tbody>
+    </table>
+    <button class="button__insert" @onclick="CreateNewCustom">
+        <span class="button__text">Insert</span>
+    </button>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await CustomService.GetCustoms();
+    }
+    private void ShowCustom(int id)
+    {
+        NavigationManager.NavigateTo($"custom/{id}");
+    }
+    private void CreateNewCustom()
+    {
+        NavigationManager.NavigateTo("/custom/new");
+    }
+}

@@ -1,0 +1,64 @@
+﻿@page "/cars"
+@inject ICarService CarService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Cars View</PageTitle>
+
+<h3>Cars Data</h3>
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (CarService.Cars is null)
+{
+    <span>Loading Cars...</span>
+}
+else
+{
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>VIN</th>
+                <th>License</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Custom</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <Virtualize Items="CarService.Cars" Context="car">
+                <tr>
+                    <td>@car.VIN</td>
+                    <td>@car.LicensePlate</td>
+                    <td>@car.Make</td>
+                    <td>@car.Model</td>
+                    <td>@car.Color</td>
+                    <td>@car.Custom?.Description</td>
+                    <td>
+                        <button class="button__edit" @onclick="(() => ShowCar(car.Id))">
+                            <span class="button__text">Edit</span>
+                        </button>
+                    </td>
+                </tr>
+            </Virtualize>
+        </tbody>
+    </table>
+    <button class="button__insert" @onclick="CreateNewCar">
+        <span class="button__text">Insert</span>
+    </button>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await CarService.GetCars();
+    }
+    private void ShowCar(int id)
+    {
+        NavigationManager.NavigateTo($"car/{id}");
+    }
+    private void CreateNewCar()
+    {
+        NavigationManager.NavigateTo("/car/new");
+    }
+}
